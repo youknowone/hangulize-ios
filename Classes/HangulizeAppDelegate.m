@@ -9,32 +9,17 @@
 #import "HangulizeAppDelegate.h"
 #import "HangulizeViewController.h"
 
-#import "CaulyViewController.h"
+#import "CaulyHelper.h"
 
 @implementation HangulizeAppDelegate
-
-@synthesize window;
-@synthesize viewController;
-@synthesize bannerView;
-
 
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-    
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [self.window bringSubviewToFront:self.bannerView];
+    CaulyGlobalSet(@"iYEufJHrmW", self.viewController, self.bannerView, nil);
 
-    // Add the view controller's view to the window and display.
-    [self.window addSubview:viewController.view];
-    [self.window makeKeyAndVisible];
-	
-	[CaulyViewController initCauly:(id<CaulyProtocol>)self setLogLevel:CL_RELEASE];
-	
-	if( [CaulyViewController requestBannerAD:nil caulyParentview:bannerView xPos:0.0f yPos:0.0f] == FALSE ) {
-		ICLog(TRUE, @"requestBannerAD failed");
-	}
-	
     return YES;
 }
 
@@ -42,16 +27,10 @@
 #pragma mark Memory management
 
 - (void)dealloc {
-	[bannerView release];
-    [viewController release];
-    [window release];
+    self.bannerView = nil;
+    self.viewController = nil;
+    self.window = nil;
     [super dealloc];
-}
-
-#pragma mark Cauly
-
-- (NSString *) devKey {
-	return @"iYEufJHrmW";
 }
 
 @end

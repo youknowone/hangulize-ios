@@ -6,33 +6,27 @@
 //  Copyright 2011 3rddev Inc. All rights reserved.
 //
 
-@interface HangulizeViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ICTableViewCellCopyableDelegate> {
-	NSArray *languages;
-	NSDictionary *selectedLanguage;
-	
-	IBOutlet UIActivityIndicatorView *activityIndicator;
-	IBOutlet UITableView *layoutTableView;
-	IBOutlet UIView *bannerView;
-	
-	// preference
-	IBOutlet UIPickerView *languagePickerView;
-	IBOutlet UIViewController *preferenceViewController;
-	
-	// current status
-	IBOutlet UISearchBar *wordSearchBar;
-	NSString *result;
-	
-	// temporary variables
-	NSMutableURLRequest *tempRequest;
+@class PreferenceViewController;
+@interface HangulizeViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate,UIATableViewCellCopyableDelegate> {
+    NSDictionary *selectedLanguage;
+    
+    IBOutlet UIActivityIndicatorView *activityIndicator;
+    IBOutlet UITableView *layoutTableView;
+    
+    // preference
+    PreferenceViewController *preferenceViewController;
+    
+    // current status
+    IBOutlet UISearchBar *wordSearchBar;
 }
 
 @property (nonatomic, retain) NSArray *languages;
 @property (nonatomic, retain) NSString *result;
 
-- (IBAction) showPreference;
-- (IBAction) preferenceChanged;
-- (IBAction) showExample;
+- (IBAction)showPreference;
+- (IBAction)preferenceChanged;
+- (IBAction)showExample;
 
-- (void) networkErrorOccured:(NSError *)error;
+- (void)networkErrorOccured:(NSError *)error;
 
 @end

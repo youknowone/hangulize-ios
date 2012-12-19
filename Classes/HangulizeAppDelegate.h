@@ -6,20 +6,14 @@
 //  Copyright 2011 3rddev Inc. All rights reserved.
 //
 
-#import "CaulyProtocol.h"
-
-#define HGPreferenceKeyLastSelectedLanguageIndex	@"HGLastSelectedLanguageIndex"
-#define HGPreferenceKeyLastWord						@"HGLastWord"
-#define HGPreferenceKeyLastResult					@"HGLastResult"
+#define HGPreferenceKeyLastSelectedLanguageIndex    @"HGLastSelectedLanguageIndex"
+#define HGPreferenceKeyLanguages                    @"HGLanguages"
+#define HGPreferenceKeyLastWord                     @"HGLastWord"
+#define HGPreferenceKeyLastResult                   @"HGLastResult"
 
 @class HangulizeViewController;
 
-@interface HangulizeAppDelegate : NSObject <UIApplicationDelegate, CaulyProtocol> {
-    UIWindow *window;
-    HangulizeViewController *viewController;
-	
-	UIView *bannerView;
-}
+@interface HangulizeAppDelegate : NSObject <UIApplicationDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet HangulizeViewController *viewController;

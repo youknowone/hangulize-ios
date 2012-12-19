@@ -3,7 +3,6 @@
 //
 
 #ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-    #import <UIKit/UIKit.h>
-	#import <IdealUIKit/IdealUIKit.h>
+    #import <cdebug/debug.h>
+    #import <UIKitExtension/UIKitExtension.h>
 #endif

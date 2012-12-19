@@ -17,3 +17,7 @@
 build
 include
 
+Pods
+Podfile.lock
+*.xcworkspace
+*.xcodeproj/xcuserdata
