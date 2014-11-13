@@ -20,8 +20,8 @@
     IBOutlet UISearchBar *wordSearchBar;
 }
 
-@property (nonatomic, retain) NSArray *languages;
-@property (nonatomic, retain) NSString *result;
+@property (nonatomic, strong) NSArray *languages;
+@property (nonatomic, strong) NSString *result;
 
 - (IBAction)showPreference;
 - (IBAction)preferenceChanged;

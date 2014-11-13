@@ -6,7 +6,7 @@
 //  Copyright 2011 3rddev Inc. All rights reserved.
 //
 
-#import "HangulizeAppDelegate.h"
+#import "AppDelegate.h"
 #import "HangulizeViewController.h"
 #import "PreferenceViewController.h"
 
@@ -16,7 +16,7 @@
 #pragma mark IBAction
 
 - (void) done {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:NULL];
     [self.hangulizeViewController preferenceChanged];
 }
 
@@ -70,10 +70,8 @@
 @implementation LanguageView
 
 - (id)initWithName:(NSString *)name code:(NSString *)code {
-    [self release];
     UIViewController *vc = [[UIViewController alloc] initWithNibName:@"LanguageTitleViewContainer" bundle:nil];
-    self = (id)[vc.view retain];
-    [vc release];
+    self = (id)vc.view;
     if (self != nil) {
         nameLabel.text = name;
         codeLabel.text = [NSString stringWithFormat:@"%@", code];
@@ -83,8 +81,7 @@
 
 + (LanguageView *)viewWithName:(NSString *)name code:(NSString *)code {
     UIViewController *vc = [[UIViewController alloc] initWithNibName:@"LanguageTitleViewContainer" bundle:nil];
-    LanguageView *view = [(id)[vc.view retain] autorelease];
-    [vc release];
+    LanguageView *view = (id)vc.view;
     if (self != nil) {
         view->nameLabel.text = name;
         view->codeLabel.text = [NSString stringWithFormat:@"%@", code];

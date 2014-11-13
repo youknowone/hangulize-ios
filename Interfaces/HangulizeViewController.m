@@ -6,7 +6,8 @@
 //  Copyright 2011 3rddev Inc. All rights reserved.
 //
 
-#import "HangulizeAppDelegate.h"
+#import <AdMobHelper/AdMobHelper.h>
+#import "AppDelegate.h"
 #import "HangulizeViewController.h"
 
 #import "PreferenceViewController.h"
@@ -14,11 +15,6 @@
 @implementation HangulizeViewController
 @synthesize languages, result;
 
-- (void)dealloc {
-    self.languages = nil;
-    self.result = nil;
-    [super dealloc];
-}
 
 - (void)awakeFromNib {
     preferenceViewController = [[PreferenceViewController alloc] initWithNibName:@"PreferenceViewController" bundle:nil];
@@ -47,8 +43,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    UIView *bannerView = [[UIView alloc] initWithFrame:CGRectMake(.0, self.view.window.frame.size.height - 50.0, self.view.window.frame.size.width, 50.0)];
+    [self.view.window addSubview:bannerView];
+    AdMobQuickSet(@"ca-app-pub-7934160831494186/7287641757", self, bannerView);
 
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     self.languages = [userDefault objectForKey:HGPreferenceKeyLanguages];
 
     // refresh languages
@@ -59,9 +58,8 @@
     NSError *error = nil;
     NSDictionary *languagesDictionary = [NSDictionary dictionaryWithContentsOfURLRequest:request format:NULL error:&error];
     if (self.languages == nil && (error != nil || languagesDictionary == nil || ![[languagesDictionary objectForKey:@"success"] boolValue])) {
-        UIAlertView *alert = [[UIAlertView alloc] initNoticeWithTitle:NSLocalizedStringFromTable(@"Network Error", @"common", @"") message:NSLocalizedStringFromTable(@"Network error when getting languages list from server.", @"hangulize", @"") cancelButtonTitle:NSLocalizedStringFromTable(@"OK", @"common", @"")];
+        UIAlertView *alert = [[UIAlertView alloc] initNoticeWithTitle:NSLocalizedStringFromTable(@"Network Error", @"common", @"") message:NSLocalizedStringFromTable(@"Network error while getting languages list from server.", @"hangulize", @"") cancelButtonTitle:NSLocalizedStringFromTable(@"OK", @"common", @"")];
         [alert show];
-        [alert release];
         
         [NSTimer delayedTimerWithTimeInterval:3.0 target:[UIApplication sharedApplication] selector:@selector(finalize)];
 
@@ -72,15 +70,20 @@
     dassert([languages count] == [[languagesDictionary objectForKey:@"length"] integerValue]);
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self preferenceChanged];
+}
+
 #pragma mark IBAction
 
 - (void)showPreference {
-    [self presentModalViewController:preferenceViewController animated:YES];
+    [self presentViewController:preferenceViewController animated:YES completion:NULL];
 }
 
 - (void)showExample {
     [activityIndicator startAnimating];
-    NSThread *thread = [[[NSThread alloc] initWithTarget:self selector:@selector(showExampleBackground) object:nil] autorelease];
+    NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(showExampleBackground) object:nil];
     [thread start];
 }
 
@@ -117,6 +120,14 @@
 }
 
 #pragma mark UISearchBar delegate
+
+//- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
+//    [searchBar endEditing:YES];
+//    [activityIndicator startAnimating];
+//    NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(queryBackground) object:nil];
+//    [thread start];
+//    return YES;
+//}
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     searchBar.showsCancelButton = YES;
@@ -210,7 +221,7 @@
                 if ((cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier]) == nil ) {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
                     cell.textLabel.textColor = [UIColor grayColor];
-                    cell.textLabel.textAlignment = UITextAlignmentCenter;
+                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     cell.textLabel.text = NSLocalizedStringFromTable(@"Show other Example", @"hangulize", @"");
                 }
                 break;

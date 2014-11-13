@@ -8,8 +8,8 @@
 
 @interface PreferenceViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource> 
 
-@property (nonatomic, assign) HangulizeViewController *hangulizeViewController;
-@property (nonatomic, retain) IBOutlet UIPickerView *languagePickerView;
+@property (nonatomic, weak) HangulizeViewController *hangulizeViewController;
+@property (nonatomic, strong) IBOutlet UIPickerView *languagePickerView;
 
 - (IBAction) done;
 

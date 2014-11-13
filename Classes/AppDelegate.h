@@ -13,11 +13,9 @@
 
 @class HangulizeViewController;
 
-@interface HangulizeAppDelegate : NSObject <UIApplicationDelegate>
+@interface AppDelegate : NSObject <UIApplicationDelegate>
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet HangulizeViewController *viewController;
-@property (nonatomic, retain) IBOutlet UIView *bannerView;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
 
 @end
 

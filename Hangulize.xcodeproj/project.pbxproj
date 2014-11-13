@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* HangulizeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* HangulizeAppDelegate.m */; };
+		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -23,7 +23,7 @@
 		38E48DD216819AA500BD4F6D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38E48DD116819AA500BD4F6D /* Default@2x.png */; };
 		38E48DD416819AA900BD4F6D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38E48DD316819AA900BD4F6D /* Default-568h@2x.png */; };
 		38E48DDC1681A57C00BD4F6D /* PreferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38E48DDE1681A57C00BD4F6D /* PreferenceViewController.xib */; };
-		38E48DE11681A68200BD4F6D /* HangulizeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38E48DE01681A68200BD4F6D /* HangulizeViewController.xib */; };
+		38F55D081A13276B0004E2FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38F55D071A13276B0004E2FA /* Main.storyboard */; };
 		D46F7C2E12F330B8007B39A2 /* HangulizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D46F7C2C12F330B8007B39A2 /* HangulizeViewController.m */; };
 		D46F7C3212F330DC007B39A2 /* LanguageTitleViewContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = D46F7C3112F330DC007B39A2 /* LanguageTitleViewContainer.xib */; };
 		D46F7C6712F34773007B39A2 /* PreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D46F7C6512F34773007B39A2 /* PreferenceViewController.m */; };
@@ -31,10 +31,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		07ACA07E8CEB44E3AA9CF54A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* HangulizeAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HangulizeAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* HangulizeAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HangulizeAppDelegate.m; sourceTree = "<group>"; };
+		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Hangulize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hangulize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -55,7 +54,7 @@
 		38E48DD316819AA900BD4F6D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		38E48DDD1681A57C00BD4F6D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferenceViewController.xib; sourceTree = "<group>"; };
 		38E48DDF1681A58200BD4F6D /* ko */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ko; path = ko.lproj/PreferenceViewController.xib; sourceTree = "<group>"; };
-		38E48DE01681A68200BD4F6D /* HangulizeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HangulizeViewController.xib; sourceTree = "<group>"; };
+		38F55D071A13276B0004E2FA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Hangulize-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Hangulize-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D46F7C2B12F330B8007B39A2 /* HangulizeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HangulizeViewController.h; sourceTree = "<group>"; };
 		D46F7C2C12F330B8007B39A2 /* HangulizeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HangulizeViewController.m; sourceTree = "<group>"; };
@@ -63,6 +62,8 @@
 		D46F7C6412F34773007B39A2 /* PreferenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceViewController.h; sourceTree = "<group>"; };
 		D46F7C6512F34773007B39A2 /* PreferenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceViewController.m; sourceTree = "<group>"; };
 		D4D99EFF12ED23CE00B24897 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		D8A5FEBFBB10CC3CB267AD01 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		E73969D129A39988F02F63EE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +84,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1D3623240D0F684500981E51 /* HangulizeAppDelegate.h */,
-				1D3623250D0F684500981E51 /* HangulizeAppDelegate.m */,
+				1D3623240D0F684500981E51 /* AppDelegate.h */,
+				1D3623250D0F684500981E51 /* AppDelegate.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -95,6 +96,15 @@
 				1D6058910D05DD3D006BFB54 /* Hangulize.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1DC7CE34AFB23A8A831D7953 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D8A5FEBFBB10CC3CB267AD01 /* Pods.debug.xcconfig */,
+				E73969D129A39988F02F63EE /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
@@ -109,8 +119,8 @@
 				D4D99EFE12ED23CE00B24897 /* Images */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				07ACA07E8CEB44E3AA9CF54A /* Pods.xcconfig */,
 				38E48DCF168196BA00BD4F6D /* libPods.a */,
+				1DC7CE34AFB23A8A831D7953 /* Pods */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -153,7 +163,7 @@
 			children = (
 				D46F7C2B12F330B8007B39A2 /* HangulizeViewController.h */,
 				D46F7C2C12F330B8007B39A2 /* HangulizeViewController.m */,
-				38E48DE01681A68200BD4F6D /* HangulizeViewController.xib */,
+				38F55D071A13276B0004E2FA /* Main.storyboard */,
 				D46F7C3112F330DC007B39A2 /* LanguageTitleViewContainer.xib */,
 				38E48DDE1681A57C00BD4F6D /* PreferenceViewController.xib */,
 				D46F7C6412F34773007B39A2 /* PreferenceViewController.h */,
@@ -183,6 +193,7 @@
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				1EE59E85DBA84F9C9943A87E /* Copy Pods Resources */,
+				38F55D091A13300B0004E2FA /* Run Crashlytics Script */,
 			);
 			buildRules = (
 			);
@@ -199,7 +210,13 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = 3rddev.org;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = RT8F3G27W8;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Hangulize" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -235,12 +252,12 @@
 				38DAD67F12FC1B750096F606 /* common.strings in Resources */,
 				38DAD68012FC1B750096F606 /* hangulize.strings in Resources */,
 				38DAD6E212FC2B390096F606 /* Icon57.png in Resources */,
+				38F55D081A13276B0004E2FA /* Main.storyboard in Resources */,
 				38DAD6E312FC2B390096F606 /* Icon72.png in Resources */,
 				38DAD6E412FC2B390096F606 /* Icon114.png in Resources */,
 				38E48DD216819AA500BD4F6D /* Default@2x.png in Resources */,
 				38E48DD416819AA900BD4F6D /* Default-568h@2x.png in Resources */,
 				38E48DDC1681A57C00BD4F6D /* PreferenceViewController.xib in Resources */,
-				38E48DE11681A68200BD4F6D /* HangulizeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +276,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+		};
+		38F55D091A13300B0004E2FA /* Run Crashlytics Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Crashlytics Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Pods/CrashlyticsFramework/Crashlytics.framework/run 1b5d8443c3eabba778b0d97bff234647af846181 34aaecdde99dce1f9408a963ba788143536760a1c73ce21b46a14f888c5d54c1";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -269,7 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* HangulizeAppDelegate.m in Sources */,
+				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				D46F7C2E12F330B8007B39A2 /* HangulizeViewController.m in Sources */,
 				D46F7C6712F34773007B39A2 /* PreferenceViewController.m in Sources */,
 			);
@@ -310,34 +341,30 @@
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 07ACA07E8CEB44E3AA9CF54A /* Pods.xcconfig */;
+			baseConfigurationReference = D8A5FEBFBB10CC3CB267AD01 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Hangulize_Prefix.pch;
 				INFOPLIST_FILE = "Hangulize-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"${PODS_ROOT}/CaulySDK/library",
-					"${PODS_ROOT}/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-				);
 				PRODUCT_NAME = Hangulize;
 			};
 			name = Debug;
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 07ACA07E8CEB44E3AA9CF54A /* Pods.xcconfig */;
+			baseConfigurationReference = E73969D129A39988F02F63EE /* Pods.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Hangulize_Prefix.pch;
 				INFOPLIST_FILE = "Hangulize-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"${PODS_ROOT}/CaulySDK/library",
-					"${PODS_ROOT}/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-				);
 				PRODUCT_NAME = Hangulize;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -346,14 +373,13 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
@@ -362,15 +388,13 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
