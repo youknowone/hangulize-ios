@@ -6,46 +6,29 @@
 //  Copyright 2011 3rddev Inc. All rights reserved.
 //
 
-#import <AdMobHelper/AdMobHelper.h>
+@import GoogleMobileAds;
+
 #import "AppDelegate.h"
 #import "HangulizeViewController.h"
 
 #import "PreferenceViewController.h"
 
 @implementation HangulizeViewController
-@synthesize languages, result;
+@synthesize languages=_languages, result;
 
 
 - (void)awakeFromNib {
-    preferenceViewController = [[PreferenceViewController alloc] initWithNibName:@"PreferenceViewController" bundle:nil];
-    preferenceViewController.hangulizeViewController = self;
-    [preferenceViewController view]; // force load
 
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-
-    wordSearchBar.text = [userDefault objectForKey:HGPreferenceKeyLastWord];
-    if (wordSearchBar.text == nil) {
-        wordSearchBar.text = @"Hangulize";
-    }
-
-    self.result = [userDefault objectForKey:HGPreferenceKeyLastResult];
-    if (self.result == nil) {
-        self.result = @"한글라이즈";
-    }
-
-    NSNumber *lastSelectedLanguageIndexNumber = [userDefault objectForKey:HGPreferenceKeyLastSelectedLanguageIndex];
-    NSInteger selectedLanguageIndex = lastSelectedLanguageIndexNumber ? [lastSelectedLanguageIndexNumber integerValue] : (rand() % languages.count);
-    [preferenceViewController.languagePickerView selectRow:selectedLanguageIndex inComponent:0 animated:NO];
-
-    [layoutTableView reloadData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    UIView *bannerView = [[UIView alloc] initWithFrame:CGRectMake(.0, self.view.window.frame.size.height - 50.0, self.view.window.frame.size.width, 50.0)];
+    GADBannerView *bannerView = [[GADBannerView alloc] initWithFrame:CGRectMake(.0, self.view.window.frame.size.height - 50.0, self.view.window.frame.size.width, 50.0)];
     [self.view.window addSubview:bannerView];
-    AdMobQuickSet(@"ca-app-pub-7934160831494186/7287641757", self, bannerView);
+    bannerView.adUnitID = @"ca-app-pub-7934160831494186/7287641757";
+    bannerView.rootViewController = self;
+    [bannerView loadRequest:[GADRequest request]];
 
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     self.languages = [userDefault objectForKey:HGPreferenceKeyLanguages];
@@ -68,6 +51,27 @@
 
     self.languages = [languagesDictionary objectForKey:@"langs"];
     dassert([languages count] == [[languagesDictionary objectForKey:@"length"] integerValue]);
+
+
+    preferenceViewController = [[PreferenceViewController alloc] initWithNibName:@"PreferenceViewController" bundle:nil];
+    preferenceViewController.hangulizeViewController = self;
+    [preferenceViewController view]; // force load
+
+    wordSearchBar.text = [userDefault objectForKey:HGPreferenceKeyLastWord];
+    if (wordSearchBar.text == nil) {
+        wordSearchBar.text = @"Hangulize";
+    }
+
+    self.result = [userDefault objectForKey:HGPreferenceKeyLastResult];
+    if (self.result == nil) {
+        self.result = @"한글라이즈";
+    }
+
+    NSNumber *lastSelectedLanguageIndexNumber = [userDefault objectForKey:HGPreferenceKeyLastSelectedLanguageIndex];
+    NSInteger selectedLanguageIndex = lastSelectedLanguageIndexNumber ? [lastSelectedLanguageIndexNumber integerValue] : (rand() % self.languages.count);
+    [preferenceViewController.languagePickerView selectRow:selectedLanguageIndex inComponent:0 animated:NO];
+
+    [layoutTableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -235,7 +239,7 @@
             }
             NSInteger selectedLanguageIndex = [preferenceViewController.languagePickerView selectedRowInComponent:0];
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:selectedLanguageIndex] forKey:HGPreferenceKeyLastSelectedLanguageIndex];
-            selectedLanguage = [languages objectAtIndex:selectedLanguageIndex];
+            selectedLanguage = self.languages[selectedLanguageIndex];
             cell.detailTextLabel.text = [selectedLanguage objectForKey:@"label"];
             break;
     }

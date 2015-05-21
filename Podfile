@@ -1,5 +1,5 @@
-platform :ios, '5.0'
+platform :ios, '6.0'
 pod 'FoundationExtension'
 pod 'Google-Mobile-Ads-SDK'
-pod 'AdMobHelper'
-pod 'CrashlyticsFramework'
+pod 'Fabric/Core'
+pod 'Fabric/Crashlytics'

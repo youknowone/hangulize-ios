@@ -6,7 +6,8 @@
 //  Copyright 2011 3rddev Inc. All rights reserved.
 //
 
-#import <Crashlytics/Crashlytics.h>
+@import Fabric;
+@import Crashlytics;
 
 #import "AppDelegate.h"
 #import "HangulizeViewController.h"
@@ -17,7 +18,7 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [Crashlytics startWithAPIKey:@"1b5d8443c3eabba778b0d97bff234647af846181"];
+    [Fabric with:@[CrashlyticsKit]];
     return YES;
 }
 

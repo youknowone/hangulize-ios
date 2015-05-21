@@ -13,6 +13,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		38531F4F1B0E847000E2C16D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38531F4D1B0E847000E2C16D /* Fabric.framework */; };
+		38531F501B0E847000E2C16D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38531F4E1B0E847000E2C16D /* Crashlytics.framework */; };
 		38DAD5DD12FC0A420096F606 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 38DAD5DC12FC0A420096F606 /* Default.png */; };
 		38DAD67F12FC1B750096F606 /* common.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38DAD67B12FC1B750096F606 /* common.strings */; };
 		38DAD68012FC1B750096F606 /* hangulize.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38DAD67D12FC1B750096F606 /* hangulize.strings */; };
@@ -40,6 +42,8 @@
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Hangulize_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hangulize_Prefix.pch; sourceTree = "<group>"; };
+		38531F4D1B0E847000E2C16D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Pods/Fabric/Fabric.framework; sourceTree = "<group>"; };
+		38531F4E1B0E847000E2C16D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Pods/Fabric/Crashlytics.framework; sourceTree = "<group>"; };
 		3855B008163C458E005584CD /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Release-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		38DAD5DC12FC0A420096F606 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		38DAD67C12FC1B750096F606 /* ko */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/common.strings; sourceTree = "<group>"; };
@@ -72,8 +76,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				38531F4F1B0E847000E2C16D /* Fabric.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+				38531F501B0E847000E2C16D /* Crashlytics.framework in Frameworks */,
 				38E48DD0168196BA00BD4F6D /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +118,8 @@
 			children = (
 				38E48DD316819AA900BD4F6D /* Default-568h@2x.png */,
 				38E48DD116819AA500BD4F6D /* Default@2x.png */,
+				38531F4D1B0E847000E2C16D /* Fabric.framework */,
+				38531F4E1B0E847000E2C16D /* Crashlytics.framework */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				D46F7C2A12F330B8007B39A2 /* Interfaces */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -290,7 +298,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Pods/CrashlyticsFramework/Crashlytics.framework/run 1b5d8443c3eabba778b0d97bff234647af846181 34aaecdde99dce1f9408a963ba788143536760a1c73ce21b46a14f888c5d54c1";
+			shellScript = "./Pods/Fabric/Fabric.framework/run 1b5d8443c3eabba778b0d97bff234647af846181 34aaecdde99dce1f9408a963ba788143536760a1c73ce21b46a14f888c5d54c1";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -346,6 +354,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Fabric",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -362,6 +374,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Fabric",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Hangulize_Prefix.pch;
 				INFOPLIST_FILE = "Hangulize-Info.plist";
@@ -373,6 +389,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -388,6 +405,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
