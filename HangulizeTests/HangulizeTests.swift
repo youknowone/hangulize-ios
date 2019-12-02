@@ -18,9 +18,15 @@ class HangulizeTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testShuffleRegex() {
+        let code = #"""
+        $(function() {
+            $( "[name=lang]" ).val( "bel" ).change();
+            $( "#word" ).val("\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u044c").keypress();
+        });
+        """#
+        let data = try! API.retrieveData(from: code).get()
+        XCTAssertEqual(data, [#""[name=lang]""#: #""bel""#, ##""#word""##: #""\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u044c""#])
     }
 
     func testPerformanceExample() {

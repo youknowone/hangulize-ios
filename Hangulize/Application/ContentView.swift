@@ -106,12 +106,46 @@ struct MasterView: View {
     }
 }
 
+public struct HangulizeTextFieldStyle: TextFieldStyle {
+    enum Style {
+        case word
+        case hangulized
+    }
+
+    let style: Style
+
+    public func _body(configuration: TextField<Self._Label>) -> some View {
+        var foregroundColor: Color
+        var backgroundColor: Color
+        switch style {
+        case .word:
+            foregroundColor = .hangulizeAccentColor
+            backgroundColor = .white
+        case .hangulized:
+            foregroundColor = .primary
+            backgroundColor = Color("HighlightBackgroundColor")
+        }
+
+        return configuration
+            .padding(6) // Set the inner Text Field Padding
+            .font(/*@START_MENU_TOKEN@*/ .title/*@END_MENU_TOKEN@*/)
+            .background(
+                RoundedRectangle(cornerRadius: 5)
+                    .strokeBorder(Color.gray
+                        .opacity(1), lineWidth: 0.5))
+            .background(backgroundColor)
+            .foregroundColor(foregroundColor)
+    }
+}
+
+import AVFoundation
+
 struct DetailView: View {
     let code: String
 
     @State var userInput: String = ""
-    @State var hangulized: String = ""
     @State var success: Bool = true
+    @ObservedObject var hangulized = Hangulized()
 
     var selectedLanguage: APILanguage {
         hangulize.language(forCode: code)! // or bug
@@ -121,25 +155,34 @@ struct DetailView: View {
         VStack {
             //     Color.blue.frame(width: nil, height: 140).edgesIgnoringSafeArea(.all)
             Group {
-                Group {
-                    TextField("Text to Hangulize", text: $userInput, onCommit: {
-                        if let result = try? hangulize.api.hangulize(code: self.code, word: self.userInput).get() {
-                            self.hangulized = result.result
-                            self.success = true
-                        } else {
-                            self.success = false
-                        }
-                    })
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                    TextField(" ", text: $hangulized)
-                        .disabled(true)
-                        .padding(.top, -8.0)
-                        .background(Color.clear)
-                }.textFieldStyle(RoundedBorderTextFieldStyle())
-                    .font(/*@START_MENU_TOKEN@*/ .largeTitle/*@END_MENU_TOKEN@*/)
+                TextField("Text to Hangulize", text: $userInput, onCommit: {
+                    self.hangulized.update(code: self.code, word: self.userInput)
+                })
+                    .textFieldStyle(HangulizeTextFieldStyle(style: .word))
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .foregroundColor(Color("TintColor"))
+                    .overlay(Button(action: {
+                        let utterance = AVSpeechUtterance(string: self.userInput)
+                        utterance.voice = AVSpeechSynthesisVoice(language: self.selectedLanguage.iso639_1)
+                        speechSynthesizer.speak(utterance)
+                        }, label: {
+                            Image("SoundImage").padding()
+                    }), alignment: .trailing)
+                Spacer().frame(height: 0)
+                TextField(hangulized.output != "" ? " " : "", text: $hangulized.output)
+                    .textFieldStyle(HangulizeTextFieldStyle(style: .hangulized))
+//                        .padding(.top)
+                    .disabled(true)
+                    .animation(.spring())
+                    .overlay(ActivityIndicator(isAnimating: $hangulized.updating, style: .medium).padding(.trailing), alignment: .trailing)
 
-                Button(action: {}) {
+                Button(action: {
+                    if let word = try? hangulize.api.shuffle(code: self.code).get() {
+                        self.userInput = word
+                        self.hangulized.update(code: self.code, word: word)
+                    }
+                }) {
                     HStack {
                         Spacer()
                         Text("Fill with a random example")
@@ -160,8 +203,28 @@ struct DetailView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+#if DEBUG
+
+    // struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+    // }
+
+    struct MasterView_Previews: PreviewProvider {
+        static var previews: some View {
+            NavigationView {
+                MasterView(code: "").navigationBarTitle("Languages")
+            }
+        }
     }
-}
+
+    struct DetailView_Previews: PreviewProvider {
+        static var previews: some View {
+//        NavigationView {
+            DetailView(code: "epo").navigationBarTitle("Esperanto")
+//        }
+        }
+    }
+
+#endif

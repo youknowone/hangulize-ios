@@ -11,13 +11,13 @@ import SwiftUI
 extension Color {
     static let hangulizeAccentColor = Color("TintColor")
     static let hangulizeBackgroundColor = Color("BackgroundColor")
-    static let resultBackgroundColor = Color("HighlightedBackgroundColor")
+    static let resultBackgroundColor = Color("HighlightBackgroundColor")
 }
 
 extension UIColor {
     static let hangulizeTintColor = UIColor(named: "TintColor")!
     static let hangulizeBackgroundColor = UIColor(named: "BackgroundColor")!
-    static let resultBackgroundColor = UIColor(named: "HighlightedBackgroundColor")!
+    static let resultBackgroundColor = UIColor(named: "HighlightBackgroundColor")!
 }
 
 extension UINavigationBarAppearance {

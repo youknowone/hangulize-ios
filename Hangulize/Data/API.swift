@@ -34,6 +34,26 @@ class API {
         }
     }
 
+    func call(javascriptPath path: String, params: [String: String] = [:]) -> Result<String, Error> {
+        var comps = URLComponents(string: API.host)!
+        comps.path = path
+        comps.queryItems = params.map {
+            key, value in
+            URLQueryItem(name: key, value: value)
+        }
+        let url = comps.url!
+
+        do {
+            let data = try Data(contentsOf: url)
+            guard let string = String(data: data, encoding: .utf8) else {
+                return .failure(APIError.unexpectedResponse)
+            }
+            return .success(string)
+        } catch {
+            return .failure(error)
+        }
+    }
+
     func languages() -> Result<[APILanguage], Error> {
         let result = call(jsonPath: "/langs")
 
@@ -56,30 +76,80 @@ class API {
     }
 
     func hangulize(code: String, word: String) -> Result<APIResult, Error> {
-        call(jsonPath: "/", params: ["lang": code, "word": word]).map {
+        call(jsonPath: "/", params: ["lang": code, "word": word]).flatMap {
             data in
-            APIResult(data: data)
+            guard let data = data as? [String: Any] else {
+                return .failure(APIError.unexpectedResponse)
+            }
+            return .success(APIResult(data: data))
+        }
+    }
+
+    static func retrieveData(from javascript: String) -> Result<[String: String], Error> {
+        let regex = try! NSRegularExpression(pattern: #""[^"]+""#, options: [])
+        let range = NSRange(location: 0, length: javascript.count) // practically safe
+        let results = regex.matches(in: javascript, options: [], range: range)
+        let stringAt: (Int) -> Result<String, Error> = {
+            i in
+            let r = results[i]
+            let range = Range(r.range, in: javascript)!
+            let data = "[\(javascript[range])]".data(using: .utf8)!
+            do {
+                guard let decoded = try JSONSerialization.jsonObject(with: data, options: []) as? [String] else {
+                    return .failure(APIError.unexpectedResponse)
+                }
+                return .success(decoded[0])
+            } catch {
+                return .failure(error)
+            }
+        }
+
+        var data = [String: String]()
+        for i in stride(from: 0, to: results.count, by: 2) {
+            do {
+                let s1 = try stringAt(i).get()
+                let s2 = try stringAt(i + 1).get()
+                data[s1] = s2
+            } catch {
+                return .failure(error)
+            }
+        }
+
+        return .success(data)
+    }
+
+    func shuffle(code: String) -> Result<String, Error> {
+        call(javascriptPath: "/shuffle.js", params: ["lang": code]).flatMap {
+            js in
+            API.retrieveData(from: js).flatMap {
+                dict in
+                if let word = dict["#word"] {
+                    return .success(word)
+                } else {
+                    return .failure(APIError.unexpectedResponse)
+                }
+            }
         }
     }
 }
 
 struct APILanguage {
-    let data: Any
-
-    private var dict: [String: Any] {
-        data as! [String: Any]
-    }
+    let data: [String: Any]
 
     var code: String {
-        dict["code"] as! String
+        data["code"] as! String
     }
 
     var name: String {
-        dict["name"] as! String
+        data["name"] as! String
     }
 
     var label: String {
-        dict["label"] as! String
+        data["label"] as! String
+    }
+
+    var iso639_1: String {
+        data["iso639-1"] as! String
     }
 }
 
@@ -94,20 +164,16 @@ extension APILanguage: Hashable {
 }
 
 struct APIResult {
-    let data: Any
-
-    private var dict: [String: Any] {
-        data as! [String: Any]
-    }
+    let data: [String: Any]
 
     var result: String {
-        let x = (data as! [String: Any])["result"]!
+        let x = data["result"]!
         return x as! String
     }
 }
 
-final class HangulizeService: ObservableObject {
-    @Published var languages: [APILanguage]
+final class HangulizeService {
+    var languages: [APILanguage]
 
     let api = API()
 
@@ -124,3 +190,29 @@ final class HangulizeService: ObservableObject {
 }
 
 var hangulize: HangulizeService! = HangulizeService()
+
+final class Hangulized: ObservableObject {
+    @Published var updating: Bool = false
+    @Published var output: String = ""
+    @Published var success: Bool = false
+
+    func update(code: String, word: String) {
+        updating = true
+        output = ""
+        DispatchQueue.global(qos: .userInitiated).async {
+            let result = try? hangulize.api.hangulize(code: code, word: word).get()
+            DispatchQueue.main.sync {
+                defer {
+                    self.updating = false
+                }
+                self.success = result != nil
+                if let result = result {
+                    self.output = result.result
+                }
+            }
+        }
+    }
+}
+
+import AVFoundation
+let speechSynthesizer = AVSpeechSynthesizer()
