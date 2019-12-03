@@ -28,4 +28,4 @@ final class UserState: UserDefaults {
     }
 }
 
-let user_state = UserState()
+let userState = UserState()

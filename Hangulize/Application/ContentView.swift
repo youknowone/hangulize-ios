@@ -6,6 +6,7 @@
 //  Copyright © 2019 Jeong YunWon. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
 private let dateFormatter: DateFormatter = {
@@ -38,12 +39,12 @@ struct ApplicationView: View {
 var navigationHeight: CGFloat = 104.0
 
 struct ContentView: View {
-    let initialCode = user_state.languageCode ?? hangulize.languages.randomElement()!.code
+    let initialLanguage = hangulize.language(forCode: userState.languageCode ?? hangulize.languages.randomElement()!.code)!
 
     var body: some View {
         NavigationView {
             VStack {
-                MasterView(code: initialCode)
+                MasterView(code: initialLanguage.code)
                     .navigationBarTitle(Text("Languages"))
 
 //                .navigationBarItems(
@@ -58,6 +59,8 @@ struct ContentView: View {
 //                )
 //                DetailView().navigationBarTitle("")
             }.edgesIgnoringSafeArea(.all)
+            // iPad requires second view to show
+            DetailView(language: initialLanguage).navigationBarTitle(initialLanguage.label)
         }
 
         .background(NavigationConfigurator { nc in
@@ -89,7 +92,7 @@ struct MasterView: View {
             Color.hangulizeBackgroundColor.frame(width: nil, height: upperBarHeight).edgesIgnoringSafeArea(.all)
                 .listRowInsets(EdgeInsets())
             ForEach(hangulize!.languages, id: \.self) { lang in
-                NavigationLink(destination: DetailView(code: lang.code), tag: lang.code, selection: self.$code) {
+                NavigationLink(destination: DetailView(language: hangulize.language(forCode: lang.code)!), tag: lang.code, selection: self.$code) {
                     HStack {
                         Text(lang.label)
                         Spacer()
@@ -141,22 +144,30 @@ public struct HangulizeTextFieldStyle: TextFieldStyle {
 import AVFoundation
 
 struct DetailView: View {
-    let code: String
+    let language: APILanguage
 
     @State var userInput: String = ""
-    @State var success: Bool = true
-    @ObservedObject var hangulized = Hangulized()
-
-    var selectedLanguage: APILanguage {
-        hangulize.language(forCode: code)! // or bug
-    }
+    @ObservedObject var hangulized = HangulizeView()
+    @ObservedObject var shuffled = ShuffleView()
 
     var body: some View {
-        VStack {
+        let shuffledSubject = CurrentValueSubject<String, Never>(shuffled.result)
+        _ = shuffledSubject.receive(on: RunLoop.main)
+            .sink { value in
+                guard self.userInput != value else {
+                    return
+                }
+
+                self.userInput = value
+                self.hangulized.updateInBackground(with: (code: self.language.code, word: self.userInput))
+            }
+
+        return VStack {
             //     Color.blue.frame(width: nil, height: 140).edgesIgnoringSafeArea(.all)
             Group {
                 TextField("Text to Hangulize", text: $userInput, onCommit: {
-                    self.hangulized.update(code: self.code, word: self.userInput)
+                    self.hangulized.updateInBackground(with: (code: self.language.code, word: self.userInput))
+                    userState.lastInput = self.userInput
                 })
                     .textFieldStyle(HangulizeTextFieldStyle(style: .word))
                     .autocapitalization(.none)
@@ -164,13 +175,13 @@ struct DetailView: View {
                     .foregroundColor(Color("TintColor"))
                     .overlay(Button(action: {
                         let utterance = AVSpeechUtterance(string: self.userInput)
-                        utterance.voice = AVSpeechSynthesisVoice(language: self.selectedLanguage.iso639_1)
+                        utterance.voice = AVSpeechSynthesisVoice(language: self.language.iso639_1)
                         speechSynthesizer.speak(utterance)
                         }, label: {
                             Image("SoundImage").padding()
                     }), alignment: .trailing)
                 Spacer().frame(height: 0)
-                TextField(hangulized.output != "" ? " " : "", text: $hangulized.output)
+                TextField(hangulized.success ? " " : "", text: $hangulized.result)
                     .textFieldStyle(HangulizeTextFieldStyle(style: .hangulized))
 //                        .padding(.top)
                     .disabled(true)
@@ -178,28 +189,40 @@ struct DetailView: View {
                     .overlay(ActivityIndicator(isAnimating: $hangulized.updating, style: .medium).padding(.trailing), alignment: .trailing)
 
                 Button(action: {
-                    if let word = try? hangulize.api.shuffle(code: self.code).get() {
-                        self.userInput = word
-                        self.hangulized.update(code: self.code, word: word)
-                    }
+                    self.executeShuffle()
                 }) {
                     HStack {
                         Spacer()
                         Text("Fill with a random example")
                     }
                 }
+                .disabled(shuffled.updating)
                 LogoImage()
                 Text("Hangulize is an application which automatically transcribes a non-Korean word into hangul, the Korean alphabet. Select the original language from the list and enter the word you want to transcribe into hangul in the box above. The hangul transcription will be displayed.")
                 Spacer()
             }
         }
-        .navigationBarTitle(selectedLanguage.label)
+        .navigationBarTitle(language.label)
         .padding()
         .padding(.top, upperBarHeight)
         .background(Color("BackgroundColor"))
         .onAppear {
-            user_state.languageCode = self.code
+            if userState.languageCode == self.language.code {
+                if let lastInput = userState.lastInput {
+                    self.userInput = lastInput
+                }
+            } else {
+                userState.languageCode = self.language.code
+                userState.lastInput = nil
+            }
+            if self.userInput == "" {
+                self.executeShuffle()
+            }
         }.edgesIgnoringSafeArea(.vertical)
+    }
+
+    func executeShuffle() {
+        shuffled.updateInBackground(with: language.code)
     }
 }
 
@@ -222,7 +245,8 @@ struct DetailView: View {
     struct DetailView_Previews: PreviewProvider {
         static var previews: some View {
 //        NavigationView {
-            DetailView(code: "epo").navigationBarTitle("Esperanto")
+            DetailView(language: hangulize.language(forCode: "epo")!)
+                .navigationBarTitle("Esperanto")
 //        }
         }
     }

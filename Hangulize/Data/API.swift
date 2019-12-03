@@ -75,13 +75,13 @@ class API {
         return .success(languages)
     }
 
-    func hangulize(code: String, word: String) -> Result<APIResult, Error> {
+    func hangulize(code: String, word: String) -> Result<APIHangulized, Error> {
         call(jsonPath: "/", params: ["lang": code, "word": word]).flatMap {
             data in
             guard let data = data as? [String: Any] else {
                 return .failure(APIError.unexpectedResponse)
             }
-            return .success(APIResult(data: data))
+            return .success(APIHangulized(data: data))
         }
     }
 
@@ -118,18 +118,24 @@ class API {
         return .success(data)
     }
 
-    func shuffle(code: String) -> Result<String, Error> {
+    func shuffle(code: String) -> Result<APIShuffle, Error> {
         call(javascriptPath: "/shuffle.js", params: ["lang": code]).flatMap {
             js in
             API.retrieveData(from: js).flatMap {
                 dict in
-                if let word = dict["#word"] {
-                    return .success(word)
-                } else {
-                    return .failure(APIError.unexpectedResponse)
-                }
+                dict["#word"].map { _ in
+                    .success(APIShuffle(data: dict))
+                } ?? .failure(APIError.unexpectedResponse)
             }
         }
+    }
+}
+
+struct APIShuffle {
+    let data: [String: String]
+
+    var word: String {
+        data["#word"]!
     }
 }
 
@@ -163,7 +169,7 @@ extension APILanguage: Hashable {
     }
 }
 
-struct APIResult {
+struct APIHangulized {
     let data: [String: Any]
 
     var result: String {
@@ -191,26 +197,103 @@ final class HangulizeService {
 
 var hangulize: HangulizeService! = HangulizeService()
 
-final class Hangulized: ObservableObject {
+class APIView<InputType, ResultType>: ObservableObject {
     @Published var updating: Bool = false
-    @Published var output: String = ""
     @Published var success: Bool = false
+    @Published var result: ResultType
+    @Published var _resultDefault: () -> ResultType
+    var _executeItem: DispatchWorkItem?
 
-    func update(code: String, word: String) {
-        updating = true
-        output = ""
-        DispatchQueue.global(qos: .userInitiated).async {
-            let result = try? hangulize.api.hangulize(code: code, word: word).get()
+    init(default _default: @escaping () -> ResultType) {
+        _resultDefault = _default
+        result = _default()
+    }
+}
+
+extension APIView where ResultType == String {
+    convenience init() {
+        self.init(default: { "" })
+    }
+}
+
+enum APIViewClearPolicy {
+    case trial
+    case success
+}
+
+protocol APIViewSource {
+    associatedtype InputType
+    associatedtype ResultType
+    associatedtype ViewType = APIView<InputType, ResultType>
+
+    var clearPolicy: APIViewClearPolicy { get }
+
+    func execute(with params: InputType) -> ResultType?
+    func updateInBackground(with params: InputType, onSuccess: @escaping () -> Void)
+}
+
+extension APIViewSource where ViewType == APIView<InputType, ResultType> {
+    func updateInBackground(with params: InputType, onSuccess: @escaping () -> Void = {}) {
+        let zelf = self as! ViewType
+        zelf.updating = true
+        if clearPolicy == .trial {
+            zelf.result = zelf._resultDefault()
+        }
+        if let item = zelf._executeItem {
+            item.cancel()
+        }
+        var workItem: DispatchWorkItem!
+        let _workItem = DispatchWorkItem {
+            let result = self.execute(with: params)
             DispatchQueue.main.sync {
+                if workItem.isCancelled {
+                    return
+                }
                 defer {
-                    self.updating = false
+                    zelf.updating = false
+                    zelf._executeItem = nil
                 }
-                self.success = result != nil
+                zelf.success = result != nil
                 if let result = result {
-                    self.output = result.result
+                    zelf.result = result
                 }
+                onSuccess()
             }
         }
+        workItem = _workItem
+
+        DispatchQueue.global(qos: .userInitiated).async(execute: workItem)
+        zelf._executeItem = workItem
+    }
+}
+
+final class HangulizeView: APIView<(code: String, word: String), String> {}
+
+extension HangulizeView: APIViewSource {
+    typealias InputType = (code: String, word: String)
+    typealias ResultType = String
+
+    var clearPolicy: APIViewClearPolicy {
+        .trial
+    }
+
+    func execute(with params: (code: String, word: String)) -> String? {
+        try? hangulize.api.hangulize(code: params.code, word: params.word).map { $0.result }.get()
+    }
+}
+
+final class ShuffleView: APIView<String, String> {}
+
+extension ShuffleView: APIViewSource {
+    typealias InputType = String
+    typealias ResultType = String
+
+    var clearPolicy: APIViewClearPolicy {
+        .success
+    }
+
+    func execute(with params: String) -> String? {
+        try? hangulize.api.shuffle(code: params).map { $0.word }.get()
     }
 }
 
