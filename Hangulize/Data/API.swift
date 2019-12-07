@@ -67,7 +67,7 @@ class API {
         } catch {
             return .failure(error)
         }
-        let languages = (data["langs"] as! [Any]).map { APILanguage(data: $0 as! [String: String]) }.sorted(by: { $0.name < $1.name })
+        let languages = (data["langs"] as! [Any]).map { APILanguage(data: $0 as! [String: String]) }
         if languages.isEmpty {
             return .failure(APIError.unexpectedResponse)
         }
@@ -157,6 +157,12 @@ struct APILanguage {
     var iso639_1: String {
         data["iso639-1"] as! String
     }
+
+    var hasVoice: Bool {
+        AVSpeechSynthesisVoice.speechVoices().filter {
+            $0.language.hasPrefix(self.iso639_1)
+        }.count > 0
+    }
 }
 
 extension APILanguage: Hashable {
@@ -178,8 +184,10 @@ struct APIHangulized {
     }
 }
 
-final class HangulizeService {
-    var languages: [APILanguage]
+import SwiftUI
+
+final class HangulizeService: ObservableObject {
+    @State var languages: [APILanguage]
 
     let api = API()
 
@@ -188,6 +196,13 @@ final class HangulizeService {
             return nil
         }
         languages = langs
+        sort(byKorean: userState.ordering)
+    }
+
+    func sort(byKorean ordering: Bool) {
+        languages.sort(by: ordering ? {
+            $0.label > $1.label
+        } : { $0.name > $1.name })
     }
 
     func language(forCode code: String) -> APILanguage? {
@@ -299,3 +314,5 @@ extension ShuffleView: APIViewSource {
 
 import AVFoundation
 let speechSynthesizer = AVSpeechSynthesizer()
+
+let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)

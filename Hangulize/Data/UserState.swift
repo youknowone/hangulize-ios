@@ -8,12 +8,13 @@
 
 import SwiftUI
 
-final class UserState: UserDefaults {
+final class UserState: UserDefaults, ObservableObject {
     var languageCode: String? {
         get {
             string(forKey: "LanguageCode")
         }
         set {
+            objectWillChange.send()
             set(newValue, forKey: "LanguageCode")
         }
     }
@@ -24,6 +25,17 @@ final class UserState: UserDefaults {
         }
         set {
             set(newValue, forKey: "LastInput")
+        }
+    }
+
+    var ordering: Bool {
+        get {
+            bool(forKey: "LanguageOrdering")
+        }
+        set {
+            objectWillChange.send()
+            set(newValue, forKey: "LanguageOrdering")
+            hangulize.sort(byKorean: newValue)
         }
     }
 }

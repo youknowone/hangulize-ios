@@ -9,13 +9,6 @@
 import Combine
 import SwiftUI
 
-private let dateFormatter: DateFormatter = {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .medium
-    dateFormatter.timeStyle = .medium
-    return dateFormatter
-}()
-
 var appScene: UIWindowScene!
 var upperBarHeight: CGFloat!
 
@@ -46,19 +39,8 @@ struct ContentView: View {
             VStack {
                 MasterView(code: initialLanguage.code)
                     .navigationBarTitle(Text("Languages"))
-
-//                .navigationBarItems(
-//                    leading: EditButton(),
-//                    trailing: Button(
-//                        action: {
-//                            withAnimation { self.dates.insert(Date(), at: 0) }
-//                        }
-//                    ) {
-//                        Image(systemName: "plus")
-//                    }
-//                )
-//                DetailView().navigationBarTitle("")
-            }.edgesIgnoringSafeArea(.all)
+            }
+            .edgesIgnoringSafeArea(.all)
             // iPad requires second view to show
             DetailView(language: initialLanguage).navigationBarTitle(initialLanguage.label)
         }
@@ -86,17 +68,45 @@ struct LogoImage: View {
 
 struct MasterView: View {
     @State var code: String?
+    @State var ordering: Bool = userState.ordering // FIXME:
+    @State var languages: [APILanguage] = hangulize.languages.sorted(by: userState.ordering ? {
+        $0.label < $1.label
+    } : {
+        $0.name < $1.name
+    })
 
     var body: some View {
-        List {
-            Color.hangulizeBackgroundColor.frame(width: nil, height: upperBarHeight).edgesIgnoringSafeArea(.all)
+        let _ordering = Binding(
+            get: { userState.ordering },
+            set: {
+                userState.ordering = $0
+                self.ordering = $0
+                self.languages.sort(by: $0 ? {
+                    $0.label < $1.label
+                } : {
+                    $0.name < $1.name
+                })
+            }
+        )
+
+        return List {
+            Color.hangulizeBackgroundColor.frame(width: nil, height: upperBarHeight * 3).edgesIgnoringSafeArea(.all)
                 .listRowInsets(EdgeInsets())
-            ForEach(hangulize!.languages, id: \.self) { lang in
-                NavigationLink(destination: DetailView(language: hangulize.language(forCode: lang.code)!), tag: lang.code, selection: self.$code) {
-                    HStack {
-                        Text(lang.label)
-                        Spacer()
-                        Text(lang.name)
+            ForEach(languages, id: \.self) { lang in
+                NavigationLink(destination: DetailView(language: lang), tag: lang.code, selection: self.$code) {
+                    // TODO: fix to use zorder
+                    if self.ordering {
+                        HStack {
+                            Text(lang.label)
+                            Spacer()
+                            Text(lang.name)
+                        }
+                    } else {
+                        HStack {
+                            Text(lang.name)
+                            Spacer()
+                            Text(lang.label)
+                        }
                     }
                 }
                 .padding([.leading, .trailing])
@@ -104,7 +114,11 @@ struct MasterView: View {
             .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
             .listRowBackground(Color("BackgroundColor"))
         }
-        .padding(.top, -upperBarHeight)
+        .navigationBarItems(
+            trailing:
+            Toggle(isOn: _ordering, label: { Text("Order") })
+        )
+        .padding(.top, -upperBarHeight * 3)
         .edgesIgnoringSafeArea([])
     }
 }
@@ -123,7 +137,7 @@ public struct HangulizeTextFieldStyle: TextFieldStyle {
         switch style {
         case .word:
             foregroundColor = .hangulizeAccentColor
-            backgroundColor = .white
+            backgroundColor = Color(UIColor.systemBackground)
         case .hangulized:
             foregroundColor = .primary
             backgroundColor = Color("HighlightBackgroundColor")
@@ -154,7 +168,7 @@ struct DetailView: View {
         let shuffledSubject = CurrentValueSubject<String, Never>(shuffled.result)
         _ = shuffledSubject.receive(on: RunLoop.main)
             .sink { value in
-                guard self.userInput != value else {
+                guard value != "", self.userInput != value else {
                     return
                 }
 
@@ -162,24 +176,27 @@ struct DetailView: View {
                 self.hangulized.updateInBackground(with: (code: self.language.code, word: self.userInput))
             }
 
+        let speechButton = Button(action: speakWord, label: {
+            Image("SoundImage").padding()
+        })
+
         return VStack {
-            //     Color.blue.frame(width: nil, height: 140).edgesIgnoringSafeArea(.all)
             Group {
                 TextField("Text to Hangulize", text: $userInput, onCommit: {
-                    self.hangulized.updateInBackground(with: (code: self.language.code, word: self.userInput))
+                    self.hangulized.updateInBackground(with: (code: self.language.code, word: self.userInput)) {
+                        impactFeedbackGenerator.impactOccurred()
+                    }
                     userState.lastInput = self.userInput
                 })
                     .textFieldStyle(HangulizeTextFieldStyle(style: .word))
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .foregroundColor(Color("TintColor"))
-                    .overlay(Button(action: {
-                        let utterance = AVSpeechUtterance(string: self.userInput)
-                        utterance.voice = AVSpeechSynthesisVoice(language: self.language.iso639_1)
-                        speechSynthesizer.speak(utterance)
-                        }, label: {
-                            Image("SoundImage").padding()
-                    }), alignment: .trailing)
+                    .overlay(HStack {
+                        if self.language.hasVoice {
+                            speechButton
+                        }
+                    }, alignment: .trailing)
                 Spacer().frame(height: 0)
                 TextField(hangulized.success ? " " : "", text: $hangulized.result)
                     .textFieldStyle(HangulizeTextFieldStyle(style: .hangulized))
@@ -209,7 +226,7 @@ struct DetailView: View {
         .onAppear {
             if userState.languageCode == self.language.code {
                 if let lastInput = userState.lastInput {
-                    self.userInput = lastInput
+                    self.shuffled.result = lastInput
                 }
             } else {
                 userState.languageCode = self.language.code
@@ -223,6 +240,12 @@ struct DetailView: View {
 
     func executeShuffle() {
         shuffled.updateInBackground(with: language.code)
+    }
+
+    func speakWord() {
+        let utterance = AVSpeechUtterance(string: userInput)
+        utterance.voice = AVSpeechSynthesisVoice(language: language.iso639_1)
+        speechSynthesizer.speak(utterance)
     }
 }
 
