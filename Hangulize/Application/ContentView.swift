@@ -219,7 +219,7 @@ struct DetailView: View {
                 Spacer()
             }
         }
-        .navigationBarTitle(language.label)
+        .navigationBarTitle(userState.ordering ? "\(language.label) \(language.name)" : "\(language.name) \(language.label)")
         .padding()
         .padding(.top, upperBarHeight)
         .background(Color("BackgroundColor"))
