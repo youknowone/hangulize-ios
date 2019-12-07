@@ -38,18 +38,12 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 MasterView(code: initialLanguage.code)
-                    .navigationBarTitle(Text("Languages"))
+                    .navigationBarTitle(Text(LocalizedStringKey("Languages")))
             }
             .edgesIgnoringSafeArea(.all)
             // iPad requires second view to show
             DetailView(language: initialLanguage).navigationBarTitle(initialLanguage.label)
         }
-
-        .background(NavigationConfigurator { nc in
-            // navigationHeight = nc.navigationBar.frame.height
-            nc.navigationBar.barTintColor = .blue
-            nc.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        })
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
         .background(/*@START_MENU_TOKEN@*/Color("BackgroundColor")/*@END_MENU_TOKEN@*/)
         .onAppear {
@@ -61,7 +55,7 @@ struct ContentView: View {
 
 struct LogoImage: View {
     var body: some View {
-        Image("Logo").resizable()
+        Image(NSLocalizedString("Logo", comment: "Logo image name")).resizable()
             .aspectRatio(3.29, contentMode: .fit)
     }
 }
@@ -90,20 +84,18 @@ struct MasterView: View {
         )
 
         return List {
-            Color.hangulizeBackgroundColor.frame(width: nil, height: upperBarHeight * 3).edgesIgnoringSafeArea(.all)
+            Color.hangulizeBackground.frame(width: nil, height: upperBarHeight * 3).edgesIgnoringSafeArea(.all)
                 .listRowInsets(EdgeInsets())
             ForEach(languages, id: \.self) { lang in
                 NavigationLink(destination: DetailView(language: lang), tag: lang.code, selection: self.$code) {
-                    // TODO: fix to use zorder
-                    if self.ordering {
-                        HStack {
+                    // TODO: fix to use animation
+                    HStack {
+                        if self.ordering {
                             Text(lang.label)
                             Spacer()
-                            Text(lang.name)
                         }
-                    } else {
-                        HStack {
-                            Text(lang.name)
+                        Text(lang.name)
+                        if !self.ordering {
                             Spacer()
                             Text(lang.label)
                         }
@@ -116,7 +108,7 @@ struct MasterView: View {
         }
         .navigationBarItems(
             trailing:
-            Toggle(isOn: _ordering, label: { Text("Order") })
+            Toggle(isOn: _ordering, label: { Text(LocalizedStringKey("Order")) })
         )
         .padding(.top, -upperBarHeight * 3)
         .edgesIgnoringSafeArea([])
@@ -136,7 +128,7 @@ public struct HangulizeTextFieldStyle: TextFieldStyle {
         var backgroundColor: Color
         switch style {
         case .word:
-            foregroundColor = .hangulizeAccentColor
+            foregroundColor = .hangulizeAccent
             backgroundColor = Color(UIColor.systemBackground)
         case .hangulized:
             foregroundColor = .primary
@@ -182,7 +174,7 @@ struct DetailView: View {
 
         return VStack {
             Group {
-                TextField("Text to Hangulize", text: $userInput, onCommit: {
+                TextField(LocalizedStringKey("Text to Hangulize"), text: $userInput, onCommit: {
                     self.hangulized.updateInBackground(with: (code: self.language.code, word: self.userInput)) {
                         impactFeedbackGenerator.impactOccurred()
                     }
@@ -210,12 +202,12 @@ struct DetailView: View {
                 }) {
                     HStack {
                         Spacer()
-                        Text("Fill with a random example")
+                        Text(LocalizedStringKey("Fill with a random example"))
                     }
                 }
                 .disabled(shuffled.updating)
                 LogoImage()
-                Text("Hangulize is an application which automatically transcribes a non-Korean word into hangul, the Korean alphabet. Select the original language from the list and enter the word you want to transcribe into hangul in the box above. The hangul transcription will be displayed.")
+                Text(LocalizedStringKey("Hangulize is..."))
                 Spacer()
             }
         }

@@ -27,7 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             window.backgroundColor = UIColor(named: "BackgroundColor")
             let viewController = UIHostingController(rootView: ApplicationView(scene: windowScene))
-            window.tintColor = .hangulizeTintColor
+            viewController.setNeedsTouchBarUpdate()
+
+            window.tintColor = .hangulizeTint
             window.rootViewController = viewController
             self.window = window
             window.makeKeyAndVisible()

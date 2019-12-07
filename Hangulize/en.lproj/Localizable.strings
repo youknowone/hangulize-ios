@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  Hangulize
+
+  Created by Jeong YunWon on 2019/12/07.
+  Copyright © 2019 Jeong YunWon. All rights reserved.
+*/
+
+"Languages" = "Languages";
+"Text to Hangulize" = "Text to Hangulize";
+"Order" = "Order";
+"Fill with a random example" = "Fill with a random example";
+"Hangulize is..." = "Hangulize is an application which automatically transcribes a non-Korean word into hangul, the Korean alphabet. Select the original language from the list and enter the word you want to transcribe into hangul in the box above. The hangul transcription will be displayed.";
+"Logo" = "Logo";

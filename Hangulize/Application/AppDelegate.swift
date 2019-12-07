@@ -15,14 +15,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if true {
             let appearance = UIView.appearance()
-            appearance.tintColor = .hangulizeTintColor
+            appearance.tintColor = .hangulizeTint
+            // appearance.backgroundColor = .hangulizeBackground
         }
 
         if true {
             let appearance = UINavigationBar.appearance()
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.hangulizeTintColor]
-            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.hangulizeTintColor]
-            appearance.backgroundColor = .hangulizeBackgroundColor
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.hangulizeTint]
+            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.hangulizeTint]
+            appearance.backgroundColor = .hangulizeBackground
         }
 
         return true
