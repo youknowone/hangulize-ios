@@ -39,8 +39,7 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 MasterView(code: initialLanguage.code)
-                    .navigationBarTitle(Text(LocalizedStringKey("Languages")))
-            }
+            }.navigationBarTitle(Text(LocalizedStringKey("Languages")))
             .edgesIgnoringSafeArea(.all)
             // iPad requires second view to show
             DetailView(language: initialLanguage).navigationBarTitle(initialLanguage.label)
@@ -166,6 +165,7 @@ struct DetailView: View {
                 }
 
                 self.userInput = value
+                self.shuffled.result = ""  // FIXME: awful way to prevent duplication
                 self.hangulized.updateInBackground(with: (code: self.language.code, word: self.userInput))
             }
 

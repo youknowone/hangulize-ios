@@ -10,6 +10,7 @@
 		3809E700239BF1B100D2E63A /* GADBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3809E6FF239BF1B100D2E63A /* GADBannerView.swift */; };
 		38891A94239BC38A00B1EACF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38891A96239BC38A00B1EACF /* Localizable.strings */; };
 		388AE2D5239D1B750010DE8B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 388AE2D4239D1B750010DE8B /* GoogleService-Info.plist */; };
+		388AE2DF239D27910010DE8B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 388AE2DD239D27760010DE8B /* InfoPlist.strings */; };
 		3893638923892025001D0DC9 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3893638823892025001D0DC9 /* UserState.swift */; };
 		389E69CA23899ED2008C642C /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389E69C923899ED2008C642C /* Appearance.swift */; };
 		38AE9E7D237ED61A006BAE33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AE9E7C237ED61A006BAE33 /* AppDelegate.swift */; };
@@ -47,6 +48,9 @@
 		38891A95239BC38A00B1EACF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		38891A97239BC43B00B1EACF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		388AE2D4239D1B750010DE8B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		388AE2D9239D27300010DE8B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		388AE2DC239D27760010DE8B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		388AE2DE239D27790010DE8B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		389363852388F676001D0DC9 /* Hangulize.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hangulize.entitlements; sourceTree = "<group>"; };
 		3893638823892025001D0DC9 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
 		389E69C923899ED2008C642C /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
@@ -57,7 +61,6 @@
 		38AE9E82237ED61C006BAE33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38AE9E85237ED61C006BAE33 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		38AE9E88237ED61C006BAE33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		38AE9E8A237ED61C006BAE33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38AE9E8F237ED61C006BAE33 /* HangulizeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HangulizeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38AE9E93237ED61C006BAE33 /* HangulizeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HangulizeTests.swift; sourceTree = "<group>"; };
 		38AE9E95237ED61C006BAE33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -127,7 +130,8 @@
 				38D18A352389846300D3DF2D /* Data */,
 				38AE9E82237ED61C006BAE33 /* Assets.xcassets */,
 				38AE9E87237ED61C006BAE33 /* LaunchScreen.storyboard */,
-				38AE9E8A237ED61C006BAE33 /* Info.plist */,
+				388AE2D9239D27300010DE8B /* Info.plist */,
+				388AE2DD239D27760010DE8B /* InfoPlist.strings */,
 				388AE2D4239D1B750010DE8B /* GoogleService-Info.plist */,
 				38AE9E84237ED61C006BAE33 /* Preview Content */,
 				38891A96239BC38A00B1EACF /* Localizable.strings */,
@@ -309,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				38AE9E89237ED61C006BAE33 /* LaunchScreen.storyboard in Resources */,
+				388AE2DF239D27910010DE8B /* InfoPlist.strings in Resources */,
 				38891A94239BC38A00B1EACF /* Localizable.strings in Resources */,
 				388AE2D5239D1B750010DE8B /* GoogleService-Info.plist in Resources */,
 				38AE9E86237ED61C006BAE33 /* Preview Assets.xcassets in Resources */,
@@ -448,6 +453,16 @@
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
+		};
+		388AE2DD239D27760010DE8B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				388AE2DC239D27760010DE8B /* en */,
+				388AE2DE239D27790010DE8B /* ko */,
+			);
+			name = InfoPlist.strings;
+			path = /Users/youknowone/Projects/Hangulize/Hangulize;
+			sourceTree = "<absolute>";
 		};
 		38AE9E87237ED61C006BAE33 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
