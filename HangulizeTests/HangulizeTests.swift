@@ -26,7 +26,7 @@ class HangulizeTests: XCTestCase {
         });
         """#
         let data = try! API.retrieveData(from: code).get()
-        XCTAssertEqual(data, [#""[name=lang]""#: #""bel""#, ##""#word""##: #""\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u044c""#])
+        XCTAssertEqual(data, [#"[name=lang]"#: #"bel"#, #"#word"#: #"Беларусь"#])
     }
 
     func testPerformanceExample() {

@@ -7,3 +7,6 @@ target 'Hangulize' do
     pod 'Crashlytics'
     pod 'Firebase/Analytics'
 end
+target 'HangulizeTests' do
+    pod 'Firebase/Analytics'
+end

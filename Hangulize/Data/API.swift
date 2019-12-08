@@ -6,6 +6,7 @@
 //  Copyright © 2019 Jeong YunWon. All rights reserved.
 //
 
+import Combine
 import UIKit
 
 enum APIError: Error {
@@ -157,12 +158,6 @@ struct APILanguage {
     var iso639_1: String {
         data["iso639-1"] as! String
     }
-
-    var hasVoice: Bool {
-        AVSpeechSynthesisVoice.speechVoices().filter {
-            $0.language.hasPrefix(self.iso639_1)
-        }.count > 0
-    }
 }
 
 extension APILanguage: Hashable {
@@ -183,34 +178,6 @@ struct APIHangulized {
         return x as! String
     }
 }
-
-import SwiftUI
-
-final class HangulizeService: ObservableObject {
-    @State var languages: [APILanguage]
-
-    let api = API()
-
-    init?() {
-        guard let langs = try? api.languages().get() else {
-            return nil
-        }
-        languages = langs
-        sort(byKorean: userState.ordering)
-    }
-
-    func sort(byKorean ordering: Bool) {
-        languages.sort(by: ordering ? {
-            $0.label > $1.label
-        } : { $0.name > $1.name })
-    }
-
-    func language(forCode code: String) -> APILanguage? {
-        languages.first(where: { $0.code == code })
-    }
-}
-
-var hangulize: HangulizeService! = HangulizeService()
 
 class APIView<InputType, ResultType>: ObservableObject {
     @Published var updating: Bool = false
@@ -311,8 +278,3 @@ extension ShuffleView: APIViewSource {
         try? hangulize.api.shuffle(code: params).map { $0.word }.get()
     }
 }
-
-import AVFoundation
-let speechSynthesizer = AVSpeechSynthesizer()
-
-let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)

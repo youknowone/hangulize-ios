@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3618A7ABA70D1D8D4684D43C /* Pods_HangulizeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A091B7067063903F07C2C6 /* Pods_HangulizeTests.framework */; };
 		3809E700239BF1B100D2E63A /* GADBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3809E6FF239BF1B100D2E63A /* GADBannerView.swift */; };
 		38891A94239BC38A00B1EACF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38891A96239BC38A00B1EACF /* Localizable.strings */; };
 		388AE2D5239D1B750010DE8B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 388AE2D4239D1B750010DE8B /* GoogleService-Info.plist */; };
 		388AE2DF239D27910010DE8B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 388AE2DD239D27760010DE8B /* InfoPlist.strings */; };
+		388AE2E1239D2B210010DE8B /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388AE2E0239D2B210010DE8B /* Global.swift */; };
 		3893638923892025001D0DC9 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3893638823892025001D0DC9 /* UserState.swift */; };
 		389E69CA23899ED2008C642C /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389E69C923899ED2008C642C /* Appearance.swift */; };
 		38AE9E7D237ED61A006BAE33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AE9E7C237ED61A006BAE33 /* AppDelegate.swift */; };
@@ -51,6 +53,7 @@
 		388AE2D9239D27300010DE8B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		388AE2DC239D27760010DE8B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		388AE2DE239D27790010DE8B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		388AE2E0239D2B210010DE8B /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		389363852388F676001D0DC9 /* Hangulize.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hangulize.entitlements; sourceTree = "<group>"; };
 		3893638823892025001D0DC9 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
 		389E69C923899ED2008C642C /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
@@ -70,8 +73,11 @@
 		38AE9EAC237ED89C006BAE33 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		38D18A3123897DD700D3DF2D /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		442C00CC200B8BE13FB8C6FE /* Pods-Hangulize.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hangulize.release.xcconfig"; path = "Target Support Files/Pods-Hangulize/Pods-Hangulize.release.xcconfig"; sourceTree = "<group>"; };
+		5D581C32210FCDBDA88CC000 /* Pods-HangulizeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HangulizeTests.debug.xcconfig"; path = "Target Support Files/Pods-HangulizeTests/Pods-HangulizeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B5151D43135888EA5C1E2068 /* Pods-HangulizeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HangulizeTests.release.xcconfig"; path = "Target Support Files/Pods-HangulizeTests/Pods-HangulizeTests.release.xcconfig"; sourceTree = "<group>"; };
 		BAF7AEF5ADC9E24AFB90C68D /* Pods-Hangulize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hangulize.debug.xcconfig"; path = "Target Support Files/Pods-Hangulize/Pods-Hangulize.debug.xcconfig"; sourceTree = "<group>"; };
 		E995FC29E8B8671832B00734 /* Pods_Hangulize.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hangulize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5A091B7067063903F07C2C6 /* Pods_HangulizeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HangulizeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3618A7ABA70D1D8D4684D43C /* Pods_HangulizeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +190,7 @@
 			children = (
 				38AE9EAC237ED89C006BAE33 /* API.swift */,
 				3893638823892025001D0DC9 /* UserState.swift */,
+				388AE2E0239D2B210010DE8B /* Global.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -192,6 +200,8 @@
 			children = (
 				BAF7AEF5ADC9E24AFB90C68D /* Pods-Hangulize.debug.xcconfig */,
 				442C00CC200B8BE13FB8C6FE /* Pods-Hangulize.release.xcconfig */,
+				5D581C32210FCDBDA88CC000 /* Pods-HangulizeTests.debug.xcconfig */,
+				B5151D43135888EA5C1E2068 /* Pods-HangulizeTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -200,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				E995FC29E8B8671832B00734 /* Pods_Hangulize.framework */,
+				F5A091B7067063903F07C2C6 /* Pods_HangulizeTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -231,9 +242,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 38AE9EA6237ED61D006BAE33 /* Build configuration list for PBXNativeTarget "HangulizeTests" */;
 			buildPhases = (
+				6970D686C28765684933BCCE /* [CP] Check Pods Manifest.lock */,
 				38AE9E8B237ED61C006BAE33 /* Sources */,
 				38AE9E8C237ED61C006BAE33 /* Frameworks */,
 				38AE9E8D237ED61C006BAE33 /* Resources */,
+				B9DA77E80822E41090D8F58C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -395,6 +408,45 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hangulize/Pods-Hangulize-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6970D686C28765684933BCCE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HangulizeTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9DA77E80822E41090D8F58C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HangulizeTests/Pods-HangulizeTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HangulizeTests/Pods-HangulizeTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HangulizeTests/Pods-HangulizeTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -410,6 +462,7 @@
 				38AE9EAD237ED89C006BAE33 /* API.swift in Sources */,
 				38D18A3223897DD700D3DF2D /* NetworkErrorView.swift in Sources */,
 				38AE9E81237ED61A006BAE33 /* ContentView.swift in Sources */,
+				388AE2E1239D2B210010DE8B /* Global.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +698,7 @@
 		};
 		38AE9EA7237ED61D006BAE33 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D581C32210FCDBDA88CC000 /* Pods-HangulizeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -667,6 +721,7 @@
 		};
 		38AE9EA8237ED61D006BAE33 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5151D43135888EA5C1E2068 /* Pods-HangulizeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

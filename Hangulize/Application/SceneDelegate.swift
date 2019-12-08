@@ -21,9 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
-//            let manager = windowScene.statusBarManager!
-//            let bars = manager.value(forKey: "localStatusBars")
-
             let window = UIWindow(windowScene: windowScene)
             window.backgroundColor = UIColor(named: "BackgroundColor")
             let viewController = UIHostingController(rootView: ApplicationView(scene: windowScene))

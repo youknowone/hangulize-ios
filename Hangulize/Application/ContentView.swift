@@ -37,10 +37,10 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                MasterView(code: initialLanguage.code)
-            }.navigationBarTitle(Text(LocalizedStringKey("Languages")))
-            .edgesIgnoringSafeArea(.all)
+            MasterView(code: initialLanguage.code)
+
+                .navigationBarTitle(Text(LocalizedStringKey("Languages")))
+                .edgesIgnoringSafeArea(.all)
             // iPad requires second view to show
             DetailView(language: initialLanguage).navigationBarTitle(initialLanguage.label)
         }
@@ -163,10 +163,9 @@ struct DetailView: View {
                 guard value != "", self.userInput != value else {
                     return
                 }
-
+                self.shuffled.result = "" // FIXME: awful way to prevent duplication
                 self.userInput = value
-                self.shuffled.result = ""  // FIXME: awful way to prevent duplication
-                self.hangulized.updateInBackground(with: (code: self.language.code, word: self.userInput))
+                self.executeHangulize()
             }
 
         let speechButton = Button(action: speakWord, label: {
@@ -174,53 +173,52 @@ struct DetailView: View {
         })
 
         return VStack {
-            Group {
-                TextField(LocalizedStringKey("Text to Hangulize"), text: $userInput, onCommit: {
-                    self.hangulized.updateInBackground(with: (code: self.language.code, word: self.userInput)) {
-                        impactFeedbackGenerator.impactOccurred()
-                    }
-                    userState.lastInput = self.userInput
-                })
-                    .textFieldStyle(HangulizeTextFieldStyle(style: .word))
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .foregroundColor(Color("TintColor"))
-                    .overlay(HStack {
-                        if self.language.hasVoice {
-                            speechButton
-                        }
-                    }, alignment: .trailing)
-                Spacer().frame(height: 0)
-                TextField(hangulized.success ? " " : "", text: $hangulized.result)
-                    .textFieldStyle(HangulizeTextFieldStyle(style: .hangulized))
-//                        .padding(.top)
-                    .disabled(true)
-                    .animation(.spring())
-                    .overlay(ActivityIndicator(isAnimating: $hangulized.updating, style: .medium).padding(.trailing), alignment: .trailing)
-
-                Button(action: {
-                    self.executeShuffle()
-                }) {
-                    HStack {
-                        Spacer()
-                        Text(LocalizedStringKey("Fill with a random example"))
-                    }
+            TextField(LocalizedStringKey("Text to Hangulize"), text: $userInput, onCommit: {
+                self.hangulized.updateInBackground(with: (code: self.language.code, word: self.userInput)) {
+                    impactFeedbackGenerator.impactOccurred()
                 }
-                .disabled(shuffled.updating)
-                LogoImage()
-                Text(LocalizedStringKey("Hangulize is..."))
-                Spacer()
-                GADBanner()
+                userState.lastInput = self.userInput
+            })
+                .textFieldStyle(HangulizeTextFieldStyle(style: .word))
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+                .foregroundColor(Color("TintColor"))
+                .overlay(HStack {
+                    if self.language.hasVoice {
+                        speechButton
+                    }
+                }, alignment: .trailing)
+            Spacer().frame(height: 0)
+            TextField(hangulized.success ? " " : "", text: $hangulized.result)
+                .textFieldStyle(HangulizeTextFieldStyle(style: .hangulized))
+                .disabled(true)
+                .animation(.spring())
+                .overlay(ActivityIndicator(isAnimating: $hangulized.updating, style: .medium).padding(.trailing), alignment: .trailing)
+
+            Button(action: {
+                self.executeShuffle()
+            }) {
+                HStack {
+                    Spacer()
+                    Text(LocalizedStringKey("Fill with a random example"))
+                }
             }
+            .disabled(shuffled.updating)
+            LogoImage()
+            Text(LocalizedStringKey("Hangulize is..."))
+            Spacer()
+            GADBanner(adUnitId: "ca-app-pub-7934160831494186/7287641757")
         }
         .navigationBarTitle(userState.ordering ? "\(language.label) \(language.name)" : "\(language.name) \(language.label)")
         .padding()
         .padding(.top, upperBarHeight)
         .background(Color("BackgroundColor"))
+        .edgesIgnoringSafeArea(.vertical)
         .onAppear {
             if userState.languageCode == self.language.code {
                 if let lastInput = userState.lastInput {
-                    self.shuffled.result = lastInput
+                    self.userInput = lastInput
+                    self.executeHangulize()
                 }
             } else {
                 userState.languageCode = self.language.code
@@ -229,7 +227,11 @@ struct DetailView: View {
             if self.userInput == "" {
                 self.executeShuffle()
             }
-        }.edgesIgnoringSafeArea(.vertical)
+        }
+    }
+
+    func executeHangulize() {
+        hangulized.updateInBackground(with: (code: language.code, word: userInput))
     }
 
     func executeShuffle() {
@@ -245,12 +247,6 @@ struct DetailView: View {
 
 #if DEBUG
 
-    // struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-    // }
-
     struct MasterView_Previews: PreviewProvider {
         static var previews: some View {
             NavigationView {
@@ -261,10 +257,8 @@ struct DetailView: View {
 
     struct DetailView_Previews: PreviewProvider {
         static var previews: some View {
-//        NavigationView {
             DetailView(language: hangulize.language(forCode: "epo")!)
                 .navigationBarTitle("Esperanto")
-//        }
         }
     }
 

@@ -26,32 +26,40 @@ struct NetworkErrorView: View {
 
     var body: some View {
         VStack {
+            Spacer()
             LogoImage()
             Text("Server not available. Please try reconnect when network is available.")
-            Spacer()
-            ActivityIndicator(isAnimating: $connecting, style: .large)
-            Button(action: {
-                self.connecting = true
-                DispatchQueue.global(qos: .userInitiated).async {
-                    if let newService = HangulizeService() {
-                        DispatchQueue.main.sync {
-                            hangulize = newService
-                            let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first!
-                            keyWindow.rootViewController = UIHostingController(rootView: ContentView())
-                        }
-                    } else {
-                        sleep(1)
-                        DispatchQueue.main.sync {
-                            self.connecting = false
-                        }
-                    }
-                }
-
-            }) {
+            Button(action: reconnect) {
                 Text("Reconnect")
+                    .font(.system(size: 40))
             }
+            .padding()
+            .foregroundColor(.hangulizeAccent)
+            .overlay(ActivityIndicator(isAnimating: $connecting, style: .large))
+            .disabled(self.connecting)
             Spacer()
-        }.padding()
+        }
+        .padding()
+        .background(Color.hangulizeBackground)
+        .edgesIgnoringSafeArea(.all)
+    }
+
+    func reconnect() {
+        connecting = true
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let newService = HangulizeService() {
+                DispatchQueue.main.sync {
+                    hangulize = newService
+                    let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first!
+                    keyWindow.rootViewController = UIHostingController(rootView: ContentView())
+                }
+            } else {
+                sleep(1)
+                DispatchQueue.main.sync {
+                    self.connecting = false
+                }
+            }
+        }
     }
 }
 

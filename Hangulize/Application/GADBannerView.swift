@@ -9,7 +9,9 @@
 import GoogleMobileAds
 import SwiftUI
 
-private final class GADBannerViewController: UIViewControllerRepresentable {
+private struct GADBannerViewController: UIViewControllerRepresentable {
+    let adUnitId: String
+
     func makeUIViewController(context _: Context) -> UIViewController {
         let view = GADBannerView(adSize: kGADAdSizeBanner)
 
@@ -31,10 +33,12 @@ private final class GADBannerViewController: UIViewControllerRepresentable {
 }
 
 struct GADBanner: View {
+    let adUnitId: String
+
     var body: some View {
         HStack {
             Spacer()
-            GADBannerViewController().frame(width: kGADAdSizeBanner.size.width, height: kGADAdSizeBanner.size.height, alignment: .center)
+            GADBannerViewController(adUnitId: adUnitId).frame(width: kGADAdSizeBanner.size.width, height: kGADAdSizeBanner.size.height, alignment: .center)
             Spacer()
         }
     }

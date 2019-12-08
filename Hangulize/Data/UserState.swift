@@ -6,7 +6,8 @@
 //  Copyright © 2019 Jeong YunWon. All rights reserved.
 //
 
-import SwiftUI
+import Combine
+import UIKit
 
 final class UserState: UserDefaults, ObservableObject {
     var languageCode: String? {
