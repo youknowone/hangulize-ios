@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3809E700239BF1B100D2E63A /* GADBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3809E6FF239BF1B100D2E63A /* GADBannerView.swift */; };
 		38891A94239BC38A00B1EACF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38891A96239BC38A00B1EACF /* Localizable.strings */; };
+		388AE2D5239D1B750010DE8B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 388AE2D4239D1B750010DE8B /* GoogleService-Info.plist */; };
 		3893638923892025001D0DC9 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3893638823892025001D0DC9 /* UserState.swift */; };
 		389E69CA23899ED2008C642C /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389E69C923899ED2008C642C /* Appearance.swift */; };
 		38AE9E7D237ED61A006BAE33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AE9E7C237ED61A006BAE33 /* AppDelegate.swift */; };
@@ -45,6 +46,7 @@
 		3809E6FF239BF1B100D2E63A /* GADBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADBannerView.swift; sourceTree = "<group>"; };
 		38891A95239BC38A00B1EACF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		38891A97239BC43B00B1EACF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		388AE2D4239D1B750010DE8B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		389363852388F676001D0DC9 /* Hangulize.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hangulize.entitlements; sourceTree = "<group>"; };
 		3893638823892025001D0DC9 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
 		389E69C923899ED2008C642C /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				38AE9E82237ED61C006BAE33 /* Assets.xcassets */,
 				38AE9E87237ED61C006BAE33 /* LaunchScreen.storyboard */,
 				38AE9E8A237ED61C006BAE33 /* Info.plist */,
+				388AE2D4239D1B750010DE8B /* GoogleService-Info.plist */,
 				38AE9E84237ED61C006BAE33 /* Preview Content */,
 				38891A96239BC38A00B1EACF /* Localizable.strings */,
 			);
@@ -209,6 +212,7 @@
 				38AE9E76237ED61A006BAE33 /* Frameworks */,
 				38AE9E77237ED61A006BAE33 /* Resources */,
 				3F3CEE2FAFE18AE6671D561A /* [CP] Embed Pods Frameworks */,
+				388AE2D1239D12080010DE8B /* Run Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -306,6 +310,7 @@
 			files = (
 				38AE9E89237ED61C006BAE33 /* LaunchScreen.storyboard in Resources */,
 				38891A94239BC38A00B1EACF /* Localizable.strings in Resources */,
+				388AE2D5239D1B750010DE8B /* GoogleService-Info.plist in Resources */,
 				38AE9E86237ED61C006BAE33 /* Preview Assets.xcassets in Resources */,
 				38AE9E83237ED61C006BAE33 /* Assets.xcassets in Resources */,
 			);
@@ -349,6 +354,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		388AE2D1239D12080010DE8B /* Run Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Crashlytics";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 		3F3CEE2FAFE18AE6671D561A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -560,6 +583,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hangulize/Hangulize.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Hangulize/Preview Content\"";
 				DEVELOPMENT_TEAM = 9384JEL3M9;
@@ -569,6 +593,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.3rddev.Hangulize;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -584,6 +609,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hangulize/Hangulize.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Hangulize/Preview Content\"";
 				DEVELOPMENT_TEAM = 9384JEL3M9;
@@ -593,6 +619,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.3rddev.Hangulize;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;

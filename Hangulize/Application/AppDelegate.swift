@@ -6,6 +6,7 @@
 //  Copyright © 2019 Jeong YunWon. All rights reserved.
 //
 
+import Firebase
 import GoogleMobileAds
 import UIKit
 
@@ -16,8 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         #if targetEnvironment(simulator)
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
+            GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
         #endif
+
+        FirebaseApp.configure()
 
         if true {
             let appearance = UIView.appearance()
