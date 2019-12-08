@@ -239,6 +239,8 @@ struct DetailView: View {
     }
 
     func speakWord() {
+        // macOS requires new speech synthesizer for each speech
+        let speechSynthesizer = AVSpeechSynthesizer()
         let utterance = AVSpeechUtterance(string: userInput)
         utterance.voice = AVSpeechSynthesisVoice(language: language.iso639_1)
         speechSynthesizer.speak(utterance)

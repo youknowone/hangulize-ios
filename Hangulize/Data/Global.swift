@@ -10,7 +10,6 @@ import AVFoundation
 import SwiftUI
 import UIKit
 
-let speechSynthesizer = AVSpeechSynthesizer()
 let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
 var hangulize: HangulizeService! = HangulizeService()
 
