@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3809E700239BF1B100D2E63A /* GADBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3809E6FF239BF1B100D2E63A /* GADBannerView.swift */; };
 		38891A94239BC38A00B1EACF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38891A96239BC38A00B1EACF /* Localizable.strings */; };
 		3893638923892025001D0DC9 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3893638823892025001D0DC9 /* UserState.swift */; };
 		389E69CA23899ED2008C642C /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389E69C923899ED2008C642C /* Appearance.swift */; };
@@ -20,6 +21,7 @@
 		38AE9E9F237ED61D006BAE33 /* HangulizeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AE9E9E237ED61D006BAE33 /* HangulizeUITests.swift */; };
 		38AE9EAD237ED89C006BAE33 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AE9EAC237ED89C006BAE33 /* API.swift */; };
 		38D18A3223897DD700D3DF2D /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D18A3123897DD700D3DF2D /* NetworkErrorView.swift */; };
+		DE3CBD6059DFB74B5224C5DA /* Pods_Hangulize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E995FC29E8B8671832B00734 /* Pods_Hangulize.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3809E6FF239BF1B100D2E63A /* GADBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADBannerView.swift; sourceTree = "<group>"; };
 		38891A95239BC38A00B1EACF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		38891A97239BC43B00B1EACF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		389363852388F676001D0DC9 /* Hangulize.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hangulize.entitlements; sourceTree = "<group>"; };
@@ -61,6 +64,9 @@
 		38AE9EA0237ED61D006BAE33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38AE9EAC237ED89C006BAE33 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		38D18A3123897DD700D3DF2D /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
+		442C00CC200B8BE13FB8C6FE /* Pods-Hangulize.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hangulize.release.xcconfig"; path = "Target Support Files/Pods-Hangulize/Pods-Hangulize.release.xcconfig"; sourceTree = "<group>"; };
+		BAF7AEF5ADC9E24AFB90C68D /* Pods-Hangulize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hangulize.debug.xcconfig"; path = "Target Support Files/Pods-Hangulize/Pods-Hangulize.debug.xcconfig"; sourceTree = "<group>"; };
+		E995FC29E8B8671832B00734 /* Pods_Hangulize.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hangulize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE3CBD6059DFB74B5224C5DA /* Pods_Hangulize.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +102,8 @@
 				38AE9E92237ED61C006BAE33 /* HangulizeTests */,
 				38AE9E9D237ED61D006BAE33 /* HangulizeUITests */,
 				38AE9E7A237ED61A006BAE33 /* Products */,
+				9276C61650037C4C3539C865 /* Pods */,
+				F57B8F6B61D378CB70C2C3DD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,6 +164,7 @@
 				38AE9E7C237ED61A006BAE33 /* AppDelegate.swift */,
 				38AE9E7E237ED61A006BAE33 /* SceneDelegate.swift */,
 				38AE9E80237ED61A006BAE33 /* ContentView.swift */,
+				3809E6FF239BF1B100D2E63A /* GADBannerView.swift */,
 				38D18A3123897DD700D3DF2D /* NetworkErrorView.swift */,
 				389E69C923899ED2008C642C /* Appearance.swift */,
 			);
@@ -170,6 +180,23 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		9276C61650037C4C3539C865 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BAF7AEF5ADC9E24AFB90C68D /* Pods-Hangulize.debug.xcconfig */,
+				442C00CC200B8BE13FB8C6FE /* Pods-Hangulize.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F57B8F6B61D378CB70C2C3DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E995FC29E8B8671832B00734 /* Pods_Hangulize.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -177,9 +204,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 38AE9EA3237ED61D006BAE33 /* Build configuration list for PBXNativeTarget "Hangulize" */;
 			buildPhases = (
+				259FD3DC112EE6E040273F9A /* [CP] Check Pods Manifest.lock */,
 				38AE9E75237ED61A006BAE33 /* Sources */,
 				38AE9E76237ED61A006BAE33 /* Frameworks */,
 				38AE9E77237ED61A006BAE33 /* Resources */,
+				3F3CEE2FAFE18AE6671D561A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -298,6 +327,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		259FD3DC112EE6E040273F9A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Hangulize-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3F3CEE2FAFE18AE6671D561A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hangulize/Pods-Hangulize-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hangulize/Pods-Hangulize-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hangulize/Pods-Hangulize-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		38AE9E75237ED61A006BAE33 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -306,6 +377,7 @@
 				38AE9E7D237ED61A006BAE33 /* AppDelegate.swift in Sources */,
 				389E69CA23899ED2008C642C /* Appearance.swift in Sources */,
 				3893638923892025001D0DC9 /* UserState.swift in Sources */,
+				3809E700239BF1B100D2E63A /* GADBannerView.swift in Sources */,
 				38AE9E7F237ED61A006BAE33 /* SceneDelegate.swift in Sources */,
 				38AE9EAD237ED89C006BAE33 /* API.swift in Sources */,
 				38D18A3223897DD700D3DF2D /* NetworkErrorView.swift in Sources */,
@@ -483,6 +555,7 @@
 		};
 		38AE9EA4237ED61D006BAE33 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BAF7AEF5ADC9E24AFB90C68D /* Pods-Hangulize.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hangulize/Hangulize.entitlements;
@@ -506,6 +579,7 @@
 		};
 		38AE9EA5237ED61D006BAE33 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 442C00CC200B8BE13FB8C6FE /* Pods-Hangulize.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hangulize/Hangulize.entitlements;

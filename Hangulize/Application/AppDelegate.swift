@@ -6,12 +6,18 @@
 //  Copyright © 2019 Jeong YunWon. All rights reserved.
 //
 
+import GoogleMobileAds
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        #if targetEnvironment(simulator)
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
+        #endif
 
         if true {
             let appearance = UIView.appearance()

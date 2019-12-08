@@ -7,6 +7,7 @@
 //
 
 import Combine
+import GoogleMobileAds
 import SwiftUI
 
 var appScene: UIWindowScene!
@@ -56,7 +57,7 @@ struct ContentView: View {
 struct LogoImage: View {
     var body: some View {
         Image(NSLocalizedString("Logo", comment: "Logo image name")).resizable()
-            .aspectRatio(3.29, contentMode: .fit)
+            .aspectRatio(4.234, contentMode: .fit)
     }
 }
 
@@ -209,6 +210,7 @@ struct DetailView: View {
                 LogoImage()
                 Text(LocalizedStringKey("Hangulize is..."))
                 Spacer()
+                GADBanner()
             }
         }
         .navigationBarTitle(userState.ordering ? "\(language.label) \(language.name)" : "\(language.name) \(language.label)")
