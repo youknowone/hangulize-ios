@@ -15,13 +15,14 @@ var upperBarHeight: CGFloat!
 
 struct ApplicationView: View {
     let scene: UIWindowScene
+    @State var loaded = hangulize != nil
 
     var body: some View {
         Group {
-            if hangulize != nil {
+            if self.loaded {
                 ContentView()
             } else {
-                NetworkErrorView()
+                NetworkErrorView(loaded: self.$loaded)
             }
         }
         .onAppear {

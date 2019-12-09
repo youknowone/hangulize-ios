@@ -22,6 +22,7 @@ struct ActivityIndicator: UIViewRepresentable {
 }
 
 struct NetworkErrorView: View {
+    @Binding var loaded: Bool
     @State var connecting = false
 
     var body: some View {
@@ -50,8 +51,7 @@ struct NetworkErrorView: View {
             if let newService = HangulizeService() {
                 DispatchQueue.main.sync {
                     hangulize = newService
-                    let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first!
-                    keyWindow.rootViewController = UIHostingController(rootView: ContentView())
+                    self.loaded = true
                 }
             } else {
                 sleep(1)
@@ -65,6 +65,6 @@ struct NetworkErrorView: View {
 
 struct NetworkErrorView_Previews: PreviewProvider {
     static var previews: some View {
-        NetworkErrorView()
+        NetworkErrorView(loaded: .constant(false))
     }
 }
