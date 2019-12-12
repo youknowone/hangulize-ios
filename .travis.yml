@@ -10,3 +10,4 @@ install:
   - brew install swiftformat
 before_script:
   - swiftformat --lint .
+  - cp ./Hangulize/mock-GoogleService-Info.plist ./Hangulize/GoogleService-Info.plist

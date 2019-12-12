@@ -514,8 +514,8 @@
 				388AE2DE239D27790010DE8B /* ko */,
 			);
 			name = InfoPlist.strings;
-			path = /Users/youknowone/Projects/Hangulize/Hangulize;
-			sourceTree = "<absolute>";
+			path = Hangulize;
+			sourceTree = SOURCE_ROOT;
 		};
 		38AE9E87237ED61C006BAE33 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
