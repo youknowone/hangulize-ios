@@ -3,8 +3,8 @@ use_frameworks!
 platform :ios, "13.0"
 
 target 'Hangulize' do
-    pod 'Google-Mobile-Ads-SDK'
     pod 'Crashlytics'
+    pod 'Firebase/AdMob'
     pod 'Firebase/Analytics'
 end
 target 'HangulizeTests' do
