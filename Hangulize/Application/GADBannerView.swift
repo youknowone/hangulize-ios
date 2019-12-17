@@ -6,26 +6,33 @@
 //  Copyright © 2019 Jeong YunWon. All rights reserved.
 //
 
-import GoogleMobileAds
 import SwiftUI
+#if !targetEnvironment(macCatalyst)
+    import GoogleMobileAds
+#endif
 
 private struct GADBannerViewController: UIViewControllerRepresentable {
     let adUnitId: String
 
     func makeUIViewController(context _: Context) -> UIViewController {
-        let view = GADBannerView(adSize: kGADAdSizeBanner)
+        #if targetEnvironment(macCatalyst)
+            let view = UIView()
+        #else
+            let view = GADBannerView(adSize: kGADAdSizeBanner)
+        #endif
 
         let viewController = UIViewController()
-        #if DEBUG
-            view.adUnitID = "ca-app-pub-3940256099942544/1712485313"
-        #else
-            view.adUnitID = adUnitId
+        #if !targetEnvironment(macCatalyst)
+            #if DEBUG
+                view.adUnitID = "ca-app-pub-3940256099942544/1712485313"
+            #else
+                view.adUnitID = adUnitId
+            #endif
+            view.rootViewController = viewController
+            viewController.view.addSubview(view)
+            viewController.view.frame = CGRect(origin: .zero, size: kGADAdSizeBanner.size)
+            view.load(GADRequest())
         #endif
-        view.rootViewController = viewController
-        viewController.view.addSubview(view)
-        viewController.view.frame = CGRect(origin: .zero, size: kGADAdSizeBanner.size)
-        view.load(GADRequest())
-
         return viewController
     }
 
@@ -38,7 +45,9 @@ struct GADBanner: View {
     var body: some View {
         HStack {
             Spacer()
-            GADBannerViewController(adUnitId: adUnitId).frame(width: kGADAdSizeBanner.size.width, height: kGADAdSizeBanner.size.height, alignment: .center)
+            #if !targetEnvironment(macCatalyst)
+                GADBannerViewController(adUnitId: adUnitId).frame(width: kGADAdSizeBanner.size.width, height: kGADAdSizeBanner.size.height, alignment: .center)
+            #endif
             Spacer()
         }
     }

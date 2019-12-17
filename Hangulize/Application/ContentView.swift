@@ -7,7 +7,6 @@
 //
 
 import Combine
-import GoogleMobileAds
 import SwiftUI
 
 var appScene: UIWindowScene!

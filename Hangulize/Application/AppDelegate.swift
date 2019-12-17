@@ -6,21 +6,23 @@
 //  Copyright © 2019 Jeong YunWon. All rights reserved.
 //
 
-import Firebase
-import GoogleMobileAds
 import UIKit
+#if !targetEnvironment(macCatalyst)
+    import Firebase
+#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        #if !targetEnvironment(macCatalyst)
+            FirebaseApp.configure()
+            GADMobileAds.sharedInstance().start(completionHandler: nil)
+        #endif
         #if targetEnvironment(simulator)
             GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
         #endif
-
-        FirebaseApp.configure()
 
         if true {
             let appearance = UIView.appearance()
